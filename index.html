@@ -141,6 +141,18 @@ section{padding:44px 0 48px}
 .panel h3{font-size:26px;font-weight:800;margin:10px 0 2px}
 .panel h3 small{font-size:16px;font-weight:600;color:var(--ink3);margin-left:8px;letter-spacing:0}
 .p-desc{color:var(--ink2);font-size:15.5px;margin:8px 0 16px}
+.plain{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;margin:16px 0 0;padding:14px 16px;background:var(--panel);border-radius:var(--r-sm);font-size:14.5px;line-height:1.7}
+.plain dt{font-size:13px;font-weight:700;color:var(--cc);white-space:nowrap;padding-top:2px}
+.plain dd{margin:0;color:var(--ink2)}
+.plain b{color:var(--ink)}
+.explain{margin-top:16px}
+.ex-tabs{display:flex;gap:6px}
+.ex-tabs button{font:inherit;font-size:13.5px;font-weight:700;padding:6px 14px;border-radius:999px;border:0;background:transparent;color:var(--ink3);cursor:pointer}
+.ex-tabs button.on{background:var(--panel);color:var(--cc)}
+.explain .plain,.explain .fig{margin-top:8px}
+.spec-box{background:var(--panel);padding:14px 16px}
+.js .explain:not(.flow) .fig,.js .explain.flow .plain{display:none}
+.explain.flow .fig,.explain:not(.flow) .plain{animation:fade .35s var(--ease)}
 .feats{display:flex;flex-wrap:wrap;gap:8px}
 .feats span{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;padding:7px 12px;border-radius:10px;background:var(--panel)}
 .feats .ic{width:16px;height:16px;color:var(--cc)}
@@ -158,7 +170,6 @@ section{padding:44px 0 48px}
 .fig-note{font-size:13px;color:var(--ink3);margin-top:8px;text-align:right}
 .specs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:4px 0 14px}
 .specs .metric b{font-size:19px}
-.more summary{display:none}
 .spec-list{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;list-style:none;font-size:14.5px;color:var(--ink2)}
 .spec-list li{display:flex;gap:8px;align-items:flex-start}
 .spec-list .ic{width:16px;height:16px;color:var(--c-dev);margin-top:4px}
@@ -261,8 +272,17 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
  .hero h1{font-size:28px}
  .dev-nums,.dev-card .pair,.assist .pair,.info .opt,.foot nav{display:none}
  .dev-name{margin-bottom:0}
- .more summary{display:list-item;cursor:pointer;font-size:14px;font-weight:700;color:var(--c-dev);margin-bottom:6px}
  .assist{padding:18px}
+ .plain{grid-template-columns:1fr;gap:2px;font-size:14px;line-height:1.6;padding:12px 14px}
+ .panel:has(.explain) .p-top .p-desc,.uses,#sys-dev .specs{display:none}
+ .assist p{font-size:14px;line-height:1.6}
+ .assist h4{font-size:18px}
+ .p-top{gap:12px}
+ .explain{margin-top:12px}
+ .p-top>div{min-width:0}
+ .specs,.metrics{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;gap:8px}
+ .specs .metric,.metrics .metric{flex:none;min-width:132px;scroll-snap-align:start}
+ .plain dd+dt{margin-top:6px}
  .foot{margin-top:28px}
 }
 </style>
@@ -387,21 +407,30 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
       <div class="metric"><b>14 核</b><span>Neoverse V3AE</span></div>
       <div class="metric"><b>4×25GbE</b><span>QSFP28</span></div>
      </div>
-     <details class="more" open><summary>完整規格</summary>
-     <ul class="spec-list">
-      <li><svg class="ic"><use href="#ic-check"/></svg>DC 19–36V 端子座寬壓供電</li>
-      <li><svg class="ic"><use href="#ic-check"/></svg>抗震動 3 Grms（5–500 Hz）</li>
-      <li><svg class="ic"><use href="#ic-check"/></svg>板載 TPM 安全晶片</li>
-      <li><svg class="ic"><use href="#ic-check"/></svg>M.2 NVMe 預裝 1TB SSD</li>
-      <li><svg class="ic"><use href="#ic-check"/></svg>4× USB 3.2 Gen 2・HDMI 4K60</li>
-      <li><svg class="ic"><use href="#ic-check"/></svg>JetPack 7.0 原生支援</li>
-     </ul></details>
+     <div class="explain">
+      <div class="ex-tabs"><button type="button" class="on" data-ex="plain">白話說明</button><button type="button" data-ex="flow">完整規格</button></div>
+      <dl class="plain">
+       <dt>白話說</dt><dd>一台放在公司裡的 AI 電腦。一般 AI 服務要把資料傳到外部的雲端機房運算，這台把算力直接放進工廠、機房或辦公室，資料留在自己手上，不靠外部網路也能運作。</dd>
+       <dt>有多強</dt><dd><b>2070 TFLOPS</b> 約等於每秒 2,070 兆次 AI 運算（FP4 精度）；<b>128GB</b> 記憶體足以把大型語言模型整顆裝進來執行。</dd>
+       <dt>適合誰</dt><dd>想用 AI，但資料不能外流、或現場網路不穩定的單位，例如工廠、校園與公部門。</dd>
+      </dl>
+      <div class="fig spec-box">
+       <ul class="spec-list">
+        <li><svg class="ic"><use href="#ic-check"/></svg>DC 19–36V 端子座寬壓供電</li>
+        <li><svg class="ic"><use href="#ic-check"/></svg>抗震動 3 Grms（5–500 Hz）</li>
+        <li><svg class="ic"><use href="#ic-check"/></svg>板載 TPM 安全晶片</li>
+        <li><svg class="ic"><use href="#ic-check"/></svg>M.2 NVMe 預裝 1TB SSD</li>
+        <li><svg class="ic"><use href="#ic-check"/></svg>4× USB 3.2 Gen 2・HDMI 4K60</li>
+        <li><svg class="ic"><use href="#ic-check"/></svg>JetPack 7.0 原生支援</li>
+       </ul>
+      </div>
+     </div>
     </div>
     <div>
      <div class="assist">
       <div class="tag"><span class="ib"><svg class="ic"><use href="#ic-code"/></svg></span>工程師小助手</div>
       <h4>裝上大模型，給工程師當寫程式助手</h4>
-      <p>透過 Strata 推論引擎在 MIC-743-AT 上部署大型語言模型，提供 OpenAI 相容 API。工程師的 VS Code 等開發工具直接接上，寫程式、查文件、看錯誤訊息都能問，程式碼不出公司。</p>
+      <p>可以把它想成公司內部專用的 AI 問答助手。透過 Strata 推論引擎在 MIC-743-AT 上裝好大型語言模型，提供 OpenAI 相容 API（市面上多數 AI 工具都認得的接法）。工程師在 VS Code 等寫程式的工具裡設定一次連線，就能請它寫程式、解釋看不懂的錯誤訊息、查技術文件。模型跑在自己的設備上，原始碼不會送到外部的 AI 服務。</p>
       <div class="pair"><span>OpenAI 相容 API</span><span>地端推論</span><span>程式碼不出內網</span></div>
      </div>
      <div class="uses">
@@ -421,12 +450,6 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
      <div class="tag"><span class="ib"><svg class="ic"><use href="#ic-pin"/></svg></span>搭配系統 01</div>
      <h3>x360<small>數位孿生維運平台</small></h3>
      <p class="p-desc">把廠區與機房搬進畫面：全景巡檢、感測值疊在設備旁、3D 數位分身，告警直接開成工單。可直接裝在 MIC-743-AT 上，資料不出廠。</p>
-     <div class="feats">
-      <span><svg class="ic"><use href="#ic-pin"/></svg>全景巡檢導航</span>
-      <span><svg class="ic"><use href="#ic-chart"/></svg>感測值即時疊層</span>
-      <span><svg class="ic"><use href="#ic-server"/></svg>3D 數位孿生</span>
-      <span><svg class="ic"><use href="#ic-zap"/></svg>告警轉工單</span>
-     </div>
     </div>
     <div>
      <div class="metrics">
@@ -442,7 +465,15 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
      </div>
     </div>
    </div>
-   <a class="fig" href="assets/flow-x360.svg" target="_blank" rel="noopener"><img src="assets/flow-x360.svg" alt="x360 現場到工單流程圖：資料接入、數位孿生、告警判斷、工單留痕" width="1400" height="284" loading="lazy"/></a>
+   <div class="explain">
+    <div class="ex-tabs"><button type="button" class="on" data-ex="plain">白話說明</button><button type="button" data-ex="flow">流程圖</button></div>
+    <dl class="plain">
+     <dt>白話說</dt><dd>把工廠或機房拍成 360 度實景放到網頁上，像看街景一樣點著走；溫度、電流、壓力等感測數字，直接標在對應的設備旁邊。</dd>
+     <dt>解決什麼</dt><dd>巡檢不必每台跑到現場看。數字一異常就發出告警，按一下開成維修工單，誰處理、什麼時候處理都留紀錄。</dd>
+     <dt>名詞解釋</dt><dd><b>數位孿生</b>＝在電腦裡做一份和現場一樣的 3D 模型，現場狀態同步顯示在上面。<b>執行期外網需求 0</b>＝系統運作時完全不用連外網。</dd>
+    </dl>
+    <a class="fig" href="assets/flow-x360.svg" target="_blank" rel="noopener"><img src="assets/flow-x360.svg" alt="x360 現場到工單流程圖：資料接入、數位孿生、告警判斷、工單留痕" width="1400" height="284" loading="lazy"/></a>
+   </div>
   </article>
 
   <!-- xESG -->
@@ -452,12 +483,6 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
      <div class="tag"><span class="ib"><svg class="ic"><use href="#ic-leaf"/></svg></span>搭配系統 02</div>
      <h3>xESG<small>企業碳管理與 ESG 永續報告平台</small></h3>
      <p class="p-desc">範疇 1／2／3 自動計算、CBAM 碳關稅試算、GRI／TCFD 報告一鍵產出，告別手工試算表。</p>
-     <div class="feats">
-      <span><svg class="ic"><use href="#ic-leaf"/></svg>碳盤查自動化</span>
-      <span><svg class="ic"><use href="#ic-calc"/></svg>CBAM 碳關稅試算</span>
-      <span><svg class="ic"><use href="#ic-file"/></svg>報告一鍵生成</span>
-      <span><svg class="ic"><use href="#ic-branch"/></svg>供應鏈碳管理</span>
-     </div>
     </div>
     <div>
      <div class="metrics">
@@ -473,7 +498,15 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
      </div>
     </div>
    </div>
-   <a class="fig" href="assets/flow-esg.svg" target="_blank" rel="noopener"><img src="assets/flow-esg.svg" alt="xESG 碳盤查到報告流程圖：資料蒐集、碳排計算、合規試算、報告產出" width="1400" height="284" loading="lazy"/></a>
+   <div class="explain">
+    <div class="ex-tabs"><button type="button" class="on" data-ex="plain">白話說明</button><button type="button" data-ex="flow">流程圖</button></div>
+    <dl class="plain">
+     <dt>白話說</dt><dd>幫公司算出一年排放了多少溫室氣體，並自動做成主管機關、客戶與投資人要看的永續報告。</dd>
+     <dt>解決什麼</dt><dd>上市櫃公司要揭露碳排，產品出口歐盟要面對碳關稅，過去多半靠 Excel 人工整理，費時又容易算錯。把用電、用油、採購等資料匯進來，系統自動計算。</dd>
+     <dt>名詞解釋</dt><dd><b>範疇 1</b>＝自己燒燃料的排放（鍋爐、公務車）；<b>範疇 2</b>＝買來的電；<b>範疇 3</b>＝供應鏈等其他間接排放。<b>CBAM</b>＝歐盟依進口產品碳排收費的制度。<b>GRI、TCFD</b>＝國際常用的永續報告格式。</dd>
+    </dl>
+    <a class="fig" href="assets/flow-esg.svg" target="_blank" rel="noopener"><img src="assets/flow-esg.svg" alt="xESG 碳盤查到報告流程圖：資料蒐集、碳排計算、合規試算、報告產出" width="1400" height="284" loading="lazy"/></a>
+   </div>
   </article>
 
   <!-- xMeetAI -->
@@ -483,12 +516,6 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
      <div class="tag"><span class="ib"><svg class="ic"><use href="#ic-mic"/></svg></span>搭配系統 03</div>
      <h3>xMeetAI<small>企業級 AI 智慧會議記錄平台</small></h3>
      <p class="p-desc">自動轉錄、說話者分離、雙輪 AI 摘要，台語客語都聽得懂，直接整合 Teams 與 Outlook。</p>
-     <div class="feats">
-      <span><svg class="ic"><use href="#ic-mic"/></svg>節省 80% 整理時間</span>
-      <span><svg class="ic"><use href="#ic-users"/></svg>說話者自動分離</span>
-      <span><svg class="ic"><use href="#ic-globe"/></svg>台語／客語支援</span>
-      <span><svg class="ic"><use href="#ic-link"/></svg>Teams・Outlook 整合</span>
-     </div>
     </div>
     <div>
      <div class="metrics">
@@ -504,13 +531,21 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
      </div>
     </div>
    </div>
-   <a class="fig" href="assets/flow-meet.svg" target="_blank" rel="noopener"><img src="assets/flow-meet.svg" alt="xMeetAI 會議到行動清單流程圖：會議進行、語音辨識、AI 摘要、產出分發" width="1400" height="284" loading="lazy"/></a>
+   <div class="explain">
+    <div class="ex-tabs"><button type="button" class="on" data-ex="plain">白話說明</button><button type="button" data-ex="flow">流程圖</button></div>
+    <dl class="plain">
+     <dt>白話說</dt><dd>開會時自動把每個人說的話轉成文字，分出是誰說的，會後整理出重點摘要和待辦事項。</dd>
+     <dt>解決什麼</dt><dd>會議記錄不用再有人邊聽邊打；國語、台語、客語混著講也聽得懂，整理好的紀錄直接送回 Teams 與 Outlook，與會者會後就收得到。</dd>
+     <dt>名詞解釋</dt><dd><b>說話者分離</b>＝自動分辨錄音裡是誰在講話。<b>並行即時連線</b>＝同一時間能有多少人一起使用。</dd>
+    </dl>
+    <a class="fig" href="assets/flow-meet.svg" target="_blank" rel="noopener"><img src="assets/flow-meet.svg" alt="xMeetAI 會議到行動清單流程圖：會議進行、語音辨識、AI 摘要、產出分發" width="1400" height="284" loading="lazy"/></a>
+   </div>
   </article>
 
   <!-- 整體架構 -->
   <article class="panel" id="sys-arch" role="tabpanel" aria-labelledby="tab-arch" style="--cc:var(--red)">
    <div class="tag"><span class="ib"><svg class="ic"><use href="#ic-shield"/></svg></span>整體架構</div>
-   <p class="p-desc" style="margin:8px 0 0"><b style="color:var(--ink)">一台 MIC-743-AT，從現場資料到 AI 應用全在內網。</b>現場資料唯讀匯入，推論、檢索與各系統都在同一台設備上；使用者經企業防火牆進入。</p>
+   <p class="p-desc" style="margin:8px 0 0"><b style="color:var(--ink)">一台 MIC-743-AT，從現場資料到 AI 應用全在內網。</b>這張圖由下往上看：最下面是公司現場既有的資料（設備感測器、會議錄音、ERP 單據、文件），系統只讀取、不會改動；中間是 MIC-743-AT，負責 AI 運算與資料檢索；上面是員工實際在用的各套系統。員工從右側經公司防火牆進來，整套設備與資料都在公司內網裡。</p>
    <a class="fig wide" href="assets/arch.svg" target="_blank" rel="noopener"><img src="assets/arch.svg" alt="整體方案參考架構圖：管理後台、搭配系統、MIC-743-AT 地端主機、現場資料與企業防火牆" width="1600" height="690" loading="lazy"/></a>
    <p class="fig-note">點圖開大圖</p>
   </article>
@@ -573,7 +608,7 @@ form.inq{padding:12px 24px 24px;display:grid;gap:12px}
 
 <script>
 // 手機把完整規格收起來（桌機維持展開）
-if(matchMedia('(max-width:760px)').matches)[].forEach.call(document.querySelectorAll('details.more'),function(d){d.open=false});
+[].forEach.call(document.querySelectorAll('.explain'),function(x){x.addEventListener('click',function(e){var b=e.target.closest('[data-ex]');if(!b)return;x.classList.toggle('flow',b.dataset.ex==='flow');[].forEach.call(x.querySelectorAll('[data-ex]'),function(t){t.classList.toggle('on',t===b)})})});
 
 // 導覽列捲動玻璃化
 (function(){
